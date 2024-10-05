@@ -1,0 +1,31 @@
+
+# .NET Core
+bin/
+obj/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.userprefs
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# DotNet core Mac/Linux
+.DS_Store
+
+# Packages
+*.nupkg
+*.snupkg
+
+# NuGet
+**/[Pp]ackages/*
+**/[Pp]ackages/.tmp/*
