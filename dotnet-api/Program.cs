@@ -1,7 +1,13 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Rewrite;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+
+// When anyone send a GET request to tasks/1 or tasks/2,
+// it will be automatically redirected to todos/1 or todos/2.
+// Using UseRewriter middle to take care of this task.
+app.UseRewriter(new RewriteOptions().AddRedirect("tasks/(.*)", "todos/$1"));
 
 app.MapGet("/", () => "Hello World!");
 
