@@ -9,6 +9,17 @@ var app = builder.Build();
 // Using UseRewriter middle to take care of this task.
 app.UseRewriter(new RewriteOptions().AddRedirect("tasks/(.*)", "todos/$1"));
 
+// Using custom Middleware
+// to send output message before and after a HTTP Request 
+// Output:
+// [GET /todos/2 10/6/2024 11:57:18 AM] Started.
+// [GET /todos/2 10/6/2024 11:57:18 AM] Finished.
+app.Use(async (context, next) => {
+    Console.WriteLine($"[{context.Request.Method} {context.Request.Path} {DateTime.UtcNow}] Started.");
+    await next(context);
+    Console.WriteLine($"[{context.Request.Method} {context.Request.Path} {DateTime.UtcNow}] Finished.");
+});
+
 app.MapGet("/", () => "Hello World!");
 
 var todos = new List<Todo>();
