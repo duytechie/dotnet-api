@@ -6,10 +6,10 @@ POST http://localhost:5018/todos
 content-type: application/json
 
 {
-    "id": 2,
-    "name": "Write another demo",
+    "id": 1,
+    "name": "Write demo",
     "dueDate": "2024-12-01",
-    "isCompleted": false
+    "isCompleted": true
 }
 
 ### 
