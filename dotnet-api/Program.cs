@@ -38,6 +38,27 @@ app.MapPost("/todos", (Todo task) =>
 {
     todos.Add(task);
     return TypedResults.Created("/todos/{id}", task);
+})
+// To filter invalid input from user
+.AddEndpointFilter(async (context, next) => {
+    // <Todo>(0) has zero index
+    var taskArgument = context.GetArgument<Todo>(0);
+    var errors = new Dictionary<string, string[]>();
+    if (taskArgument.DueDate < DateTime.UtcNow)
+    {
+        errors.Add(nameof(Todo.DueDate), ["Cannot have due date in the past"]);
+    }
+    if (taskArgument.IsCompleted)
+    {
+        errors.Add(nameof(Todo.IsCompleted), ["Cannot add completed todo"]);
+    }
+
+    if (errors.Count > 0)
+    {
+        return Results.ValidationProblem(errors);
+    }
+
+    return await next(context);
 });
 
 app.MapDelete("/todos/{id}", (int id) =>
@@ -45,6 +66,7 @@ app.MapDelete("/todos/{id}", (int id) =>
     todos.RemoveAll(t => id == t.Id);
     return TypedResults.NoContent(); 
 });
+
 
 app.Run();
 
