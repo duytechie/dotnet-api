@@ -7,9 +7,9 @@ content-type: application/json
 
 {
     "id": 1,
-    "name": "Write demo",
-    "dueDate": "2024-12-01",
-    "isCompleted": true
+    "name": "Write another demo",
+    "dueDate": "2025-12-01",
+    "isCompleted": false
 }
 
 ### 
